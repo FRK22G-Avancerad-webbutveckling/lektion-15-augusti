@@ -1,35 +1,38 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [message, setMessage] = useState<string>('')
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+	function getPosition() {
+		console.log('getPosition 1');
+		if( 'geolocation' in navigator ) {
+			console.log('getPosition 2');	
+			navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+				console.log('Position is: ', position)
+				// Todo: skriv ut positionen på ett användarvänligt sätt!
+				setMessage('Your position is: ...')
+			}, error => {
+				console.log('Position error', error);
+				setMessage('Please enable position to use this app.')
+			})
+			console.log('getPosition 3');	
+		}
+	}
+
+	return (
+		<div className="vertical-layout">
+			<header>
+				<h1> Geolocation </h1>
+			</header>
+			<main>
+				<button onClick={getPosition}> See location </button>
+				<p> {message} </p>
+			</main>
+
+		</div>
+	)
 }
 
 export default App
