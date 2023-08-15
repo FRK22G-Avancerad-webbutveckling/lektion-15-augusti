@@ -27,7 +27,7 @@ async function reverseGeocode(lat: number, lon: number, setAddress: ReactSetStat
 	// TODO: returnera ett objekt i stället för en sträng
 
 	const numberOfResponses = 5
-	const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit${numberOfResponses}&appid=${apiKey}`
+	const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit${numberOfResponses}&appid=${apiKey}`
 	const response = await fetch(url)
 	// TODO: fixa interface för datan
 	const data: Place[] = await response.json()
