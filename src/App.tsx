@@ -11,8 +11,12 @@ function App() {
 			console.log('getPosition 2');	
 			navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
 				console.log('Position is: ', position)
+				const coords: GeolocationCoordinates = position.coords
+				console.log('coords: ', coords);
+				console.log('timestamp: ', position.timestamp);
+				
 				// Todo: skriv ut positionen på ett användarvänligt sätt!
-				setMessage('Your position is: ...')
+				setMessage(`Your position is: ${coords.latitude} latitude, ${coords.longitude} longitude.`)
 			}, error => {
 				console.log('Position error', error);
 				setMessage('Please enable position to use this app.')
@@ -36,3 +40,12 @@ function App() {
 }
 
 export default App
+
+
+// {
+// 	coords: {
+// 		latitude: number,
+// 		longitude: number
+// 	},
+// 	timestamp: number
+// }
