@@ -18,6 +18,29 @@ function getPosition(setMessage: ReactSetState<string>) {
 	}
 }
 
-export { getPosition }
+
+// OBS! Använd din egen nyckel
+const apiKey: string = 'd47b32a6c5bdb17865286c8bae0dc8c3'
+
+// Reverse geocoding: omvandla latitud+longitud till en adress
+async function reverseGeocode(lat: number, lon: number, setAddress: ReactSetState<string>) {
+	// TODO: returnera ett objekt i stället för en sträng
+
+	const numberOfResponses = 5
+	const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit${numberOfResponses}&appid=${apiKey}`
+	const response = await fetch(url)
+	// TODO: fixa interface för datan
+	const data: Place[] = await response.json()
+	console.log('Reverse geocode: ', data);
+
+	const firstAddress: string = data[0].name
+	setAddress(firstAddress)
+}
+// [ { name } ]
+interface Place {
+	name: string;
+}
+
+export { getPosition, reverseGeocode }
 
 
